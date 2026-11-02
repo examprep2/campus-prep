@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 // A Branch is a department, e.g. Computer Engineering (COMPS)
 const branchSchema = new mongoose.Schema(

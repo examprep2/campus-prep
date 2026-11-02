@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 // A Subject is one course, e.g. Data Structures, Sem 3, 2019 scheme
 const subjectSchema = new mongoose.Schema(
