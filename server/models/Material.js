@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 // A Material is one uploaded file: notes, a book, a question paper or a syllabus
 const materialSchema = new mongoose.Schema(
