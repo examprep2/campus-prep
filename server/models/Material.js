@@ -62,4 +62,4 @@ const materialSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model("Material", materialSchema);
+export default mongoose.model("Material", materialSchema);

@@ -1,14 +1,14 @@
-require("dotenv").config();
-const mongoose = require("mongoose");
-const connectDB = require("../config/db");
-const Branch = require("../models/Branch");
+import "dotenv/config";
+import mongoose from "mongoose";
+import connectDB from "../config/db.js";
+import Branch from "../models/Branch.js";
 
 // The starting list of branches. More can be added later.
 const branches = [
   { name: "Computer Engineering", code: "COMPS" },
   { name: "Artificial Intelligence and Machine Learning", code: "AIML" },
   { name: "Information Technology", code: "IT" },
-  { name: "Electronical Engineering", code: "ELEX" },
+  { name: "Electronical", code: "ELEX" },
   { name: "Mechanical Engineering", code: "MECH" },
   { name: "Automobile Engineering", code: "AUTO" },
 ];

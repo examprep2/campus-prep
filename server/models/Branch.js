@@ -24,4 +24,4 @@ const branchSchema = new mongoose.Schema(
   { timestamps: true } // adds createdAt and updatedAt automatically
 );
 
-module.exports = mongoose.model("Branch", branchSchema);
+export default mongoose.model("Branch", branchSchema);

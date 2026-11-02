@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import bcrypt  from "bcryptjs"
+import bcrypt  from "bcryptjs";
 
 // A User is a student or an admin
 const userSchema = new mongoose.Schema(
@@ -74,4 +74,4 @@ userSchema.methods.comparePassword = function (enteredPassword) {
   return bcrypt.compare(enteredPassword, this.password);
 };
 
-module.exports = mongoose.model("User", userSchema);
+export default mongoose.model("User", userSchema);

@@ -50,4 +50,4 @@ const subjectSchema = new mongoose.Schema(
 // The same subject code can't be added twice for the same scheme
 subjectSchema.index({ code: 1, scheme: 1 }, { unique: true });
 
-module.exports = mongoose.model("Subject", subjectSchema);
+export default mongoose.model("Subject", subjectSchema);
