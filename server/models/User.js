@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import bcrypt  from "bcryptjs";
+import bcrypt from "bcryptjs";
 
 // A User is a student or an admin
 const userSchema = new mongoose.Schema(
@@ -28,7 +28,6 @@ const userSchema = new mongoose.Schema(
       minlength: 8,
       select: false, // never sent back in queries unless we ask for it
     },
-    // Which department the student belongs to
     branch: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Branch",
@@ -59,6 +58,21 @@ const userSchema = new mongoose.Schema(
       type: Boolean,
       default: false, // admin can block a user
     },
+    // OTP fields (the OTP is stored hashed, never as plain text)
+    otp: {
+      type: String,
+      select: false,
+    },
+    otpExpires: {
+      type: Date,
+    },
+    otpAttempts: {
+      type: Number,
+      default: 0,
+    },
+    otpSentAt: {
+      type: Date,
+    },
   },
   { timestamps: true }
 );
@@ -69,7 +83,7 @@ userSchema.pre("save", async function () {
   this.password = await bcrypt.hash(this.password, 10);
 });
 
-// Helper to check a typed password against the saved hash (used at login)
+// Check a typed password against the saved hash (used at login)
 userSchema.methods.comparePassword = function (enteredPassword) {
   return bcrypt.compare(enteredPassword, this.password);
 };
