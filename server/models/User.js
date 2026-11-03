@@ -1,6 +1,11 @@
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
 
+// Fields that only students need (admins can skip them)
+const requiredForStudent = function () {
+  return this.role === "student";
+};
+
 // A User is a student or an admin
 const userSchema = new mongoose.Schema(
   {
@@ -11,7 +16,7 @@ const userSchema = new mongoose.Schema(
     },
     age: {
       type: Number,
-      required: true,
+      required: requiredForStudent,
       min: 15,
       max: 80,
     },
@@ -31,17 +36,17 @@ const userSchema = new mongoose.Schema(
     branch: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Branch",
-      required: true,
+      required: requiredForStudent,
     },
     year: {
       type: Number,
-      required: true,
+      required: requiredForStudent,
       min: 1,
       max: 4,
     },
     semester: {
       type: Number,
-      required: true,
+      required: requiredForStudent,
       min: 1,
       max: 8,
     },
