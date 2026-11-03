@@ -1,5 +1,10 @@
 import mongoose from "mongoose";
-import bcrypt  from "bcryptjs"
+import bcrypt from "bcryptjs";
+
+// Fields that only students need (admins can skip them)
+const requiredForStudent = function () {
+  return this.role === "student";
+};
 
 // A User is a student or an admin
 const userSchema = new mongoose.Schema(
@@ -11,7 +16,7 @@ const userSchema = new mongoose.Schema(
     },
     age: {
       type: Number,
-      required: true,
+      required: requiredForStudent,
       min: 15,
       max: 80,
     },
@@ -28,21 +33,20 @@ const userSchema = new mongoose.Schema(
       minlength: 8,
       select: false, // never sent back in queries unless we ask for it
     },
-    // Which department the student belongs to
     branch: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Branch",
-      required: true,
+      required: requiredForStudent,
     },
     year: {
       type: Number,
-      required: true,
+      required: requiredForStudent,
       min: 1,
       max: 4,
     },
     semester: {
       type: Number,
-      required: true,
+      required: requiredForStudent,
       min: 1,
       max: 8,
     },
@@ -59,6 +63,21 @@ const userSchema = new mongoose.Schema(
       type: Boolean,
       default: false, // admin can block a user
     },
+    // OTP fields (the OTP is stored hashed, never as plain text)
+    otp: {
+      type: String,
+      select: false,
+    },
+    otpExpires: {
+      type: Date,
+    },
+    otpAttempts: {
+      type: Number,
+      default: 0,
+    },
+    otpSentAt: {
+      type: Date,
+    },
   },
   { timestamps: true }
 );
@@ -69,9 +88,9 @@ userSchema.pre("save", async function () {
   this.password = await bcrypt.hash(this.password, 10);
 });
 
-// Helper to check a typed password against the saved hash (used at login)
+// Check a typed password against the saved hash (used at login)
 userSchema.methods.comparePassword = function (enteredPassword) {
   return bcrypt.compare(enteredPassword, this.password);
 };
 
-module.exports = mongoose.model("User", userSchema);
+export default mongoose.model("User", userSchema);
