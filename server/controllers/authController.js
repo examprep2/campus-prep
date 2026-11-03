@@ -4,6 +4,7 @@ import crypto from "crypto";
 import User from "../models/User.js";
 import Branch from "../models/Branch.js";
 import sendEmail from "../utils/sendEmail.js";
+import jwt from "jsonwebtoken";
 
 const OTP_EXPIRY_MINUTES = 10;
 const MAX_OTP_ATTEMPTS = 5;
@@ -207,4 +208,91 @@ export const resendOtp = async (req, res) => {
       .status(500)
       .json({ success: false, message: "Something went wrong. Please try again." });
   }
+};
+
+// ---------- Login, logout and current user ----------
+
+const cookieOptions = {
+  httpOnly: true, // JavaScript in the browser can't read it
+  secure: process.env.NODE_ENV === "production",
+  sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+  maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+};
+
+const signToken = (user) =>
+  jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET, {
+    expiresIn: process.env.JWT_EXPIRES_IN || "7d",
+  });
+
+// POST /api/auth/login
+export const login = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    if (!email || !password) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Email and password are required" });
+    }
+
+    const user = await User.findOne({ email: email.toLowerCase().trim() }).select(
+      "+password"
+    );
+
+    // Same message for "no such user" and "wrong password"
+    if (!user || !(await user.comparePassword(password))) {
+      return res
+        .status(401)
+        .json({ success: false, message: "Invalid email or password" });
+    }
+
+    if (!user.isVerified) {
+      return res.status(403).json({
+        success: false,
+        message: "Please verify your email first",
+        data: { needsVerification: true, email: user.email },
+      });
+    }
+
+    if (user.isBlocked) {
+      return res
+        .status(403)
+        .json({ success: false, message: "Your account has been blocked" });
+    }
+
+    res.cookie("token", signToken(user), cookieOptions);
+
+    return res.status(200).json({
+      success: true,
+      message: "Logged in",
+      data: {
+        user: {
+          _id: user._id,
+          name: user.name,
+          email: user.email,
+          role: user.role,
+          branch: user.branch,
+          year: user.year,
+          semester: user.semester,
+        },
+      },
+    });
+  } catch (error) {
+    console.error("Login error:", error.message);
+    return res
+      .status(500)
+      .json({ success: false, message: "Something went wrong. Please try again." });
+  }
+};
+
+// POST /api/auth/logout
+export const logout = (req, res) => {
+  res.clearCookie("token", { ...cookieOptions, maxAge: undefined });
+  return res.status(200).json({ success: true, message: "Logged out" });
+};
+
+// GET /api/auth/me  (needs the protect middleware)
+export const getMe = async (req, res) => {
+  const user = await req.user.populate("branch", "name code");
+  return res.status(200).json({ success: true, data: { user } });
 };
