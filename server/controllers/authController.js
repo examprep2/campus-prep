@@ -296,3 +296,126 @@ export const getMe = async (req, res) => {
   const user = await req.user.populate("branch", "name code");
   return res.status(200).json({ success: true, data: { user } });
 };
+
+// ---------- Forgot and reset password ----------
+
+// POST /api/auth/forgot-password
+export const forgotPassword = async (req, res) => {
+  try {
+    const { email } = req.body;
+
+    if (!email) {
+      return res.status(400).json({ success: false, message: "Email is required" });
+    }
+
+    // Same answer whether or not the account exists, so nobody can probe for emails
+    const genericReply = {
+      success: true,
+      message: "If an account exists for this email, a reset code has been sent.",
+    };
+
+    const user = await User.findOne({ email: email.toLowerCase().trim() });
+
+    if (!user || !user.isVerified || user.isBlocked) {
+      return res.status(200).json(genericReply);
+    }
+
+    if (
+      user.otpSentAt &&
+      Date.now() - user.otpSentAt.getTime() < RESEND_COOLDOWN_SECONDS * 1000
+    ) {
+      return res.status(429).json({
+        success: false,
+        message: `Please wait ${RESEND_COOLDOWN_SECONDS} seconds before asking for a new code.`,
+      });
+    }
+
+    const otp = generateOtp();
+    user.otp = await bcrypt.hash(otp, 10);
+    user.otpExpires = new Date(Date.now() + OTP_EXPIRY_MINUTES * 60 * 1000);
+    user.otpAttempts = 0;
+    user.otpSentAt = new Date();
+    await user.save();
+
+    await sendEmail({
+      to: user.email,
+      subject: "Reset your Campus Prep password",
+      text: `Your password reset code is ${otp}. It expires in ${OTP_EXPIRY_MINUTES} minutes.`,
+      html: `<p>Your Campus Prep password reset code is:</p>
+             <h2 style="letter-spacing:4px">${otp}</h2>
+             <p>It expires in ${OTP_EXPIRY_MINUTES} minutes. If you did not ask for this, ignore this email.</p>`,
+    });
+
+    return res.status(200).json(genericReply);
+  } catch (error) {
+    console.error("Forgot password error:", error.message);
+    return res
+      .status(500)
+      .json({ success: false, message: "Something went wrong. Please try again." });
+  }
+};
+
+// POST /api/auth/reset-password
+export const resetPassword = async (req, res) => {
+  try {
+    const { email, otp, newPassword, confirmPassword } = req.body;
+
+    if (!email || !otp || !newPassword || !confirmPassword) {
+      return res.status(400).json({ success: false, message: "Please fill all fields" });
+    }
+
+    if (newPassword !== confirmPassword) {
+      return res.status(400).json({ success: false, message: "Passwords do not match" });
+    }
+
+    if (newPassword.length < 8) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Password must be at least 8 characters" });
+    }
+
+    const user = await User.findOne({ email: email.toLowerCase().trim() }).select("+otp");
+
+    if (!user || !user.isVerified || !user.otp) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Invalid or expired code" });
+    }
+
+    if (user.otpExpires < new Date()) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Code expired. Please request a new one." });
+    }
+
+    if (user.otpAttempts >= MAX_OTP_ATTEMPTS) {
+      return res.status(429).json({
+        success: false,
+        message: "Too many wrong attempts. Please request a new code.",
+      });
+    }
+
+    const isMatch = await bcrypt.compare(String(otp), user.otp);
+
+    if (!isMatch) {
+      user.otpAttempts += 1;
+      await user.save();
+      return res.status(400).json({ success: false, message: "Incorrect code" });
+    }
+
+    user.password = newPassword; // hashed automatically before saving
+    user.otp = undefined;
+    user.otpExpires = undefined;
+    user.otpAttempts = 0;
+    await user.save();
+
+    return res
+      .status(200)
+      .json({ success: true, message: "Password changed. You can now log in." });
+  } catch (error) {
+    console.error("Reset password error:", error.message);
+    return res
+      .status(500)
+      .json({ success: false, message: "Something went wrong. Please try again." });
+  }
+};

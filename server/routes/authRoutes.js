@@ -6,6 +6,8 @@ import {
   login,
   logout,
   getMe,
+  forgotPassword,
+  resetPassword,
 } from "../controllers/authController.js";
 import { protect } from "../middleware/auth.js";
 
@@ -16,6 +18,8 @@ router.post("/verify-otp", verifyOtp);
 router.post("/resend-otp", resendOtp);
 router.post("/login", login);
 router.post("/logout", logout);
+router.post("/forgot-password", forgotPassword);
+router.post("/reset-password", resetPassword);
 router.get("/me", protect, getMe);
 
 export default router;
