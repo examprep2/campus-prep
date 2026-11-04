@@ -1,191 +1,168 @@
-import React, { useState } from 'react';
-import {
-  GraduationCap,
-  Sparkles,
-  Search,
-  Bell,
-  Upload,
-  X,
-  Menu,
-} from 'lucide-react';
+import { useState, useEffect, useRef } from 'react';
+import { GraduationCap, Search, Menu, X } from 'lucide-react';
+
+const NAV_LINKS = [
+  { label: 'Auth & Onboarding', href: '#auth-section' },
+  { label: 'Material Vault', href: '#vault-section' },
+  { label: 'AI Assistant', href: '#assistant-section' },
+  { label: 'Admin Center', href: '#admin-section' },
+];
 
 export default function Navbar({
-  activeBranch = 'COMPS',
-  selectedSem = 'Semester 7',
   searchQuery = '',
   onSearchChange,
-  onUploadClick,
+  onLoginClick,
+  onSignupClick,
 }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const searchRef = useRef(null);
+
+  // Cmd/Ctrl + K focuses the search box
+  useEffect(() => {
+    const handler = (e) => {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        searchRef.current?.focus();
+      }
+    };
+    window.addEventListener('keydown', handler);
+    return () => window.removeEventListener('keydown', handler);
+  }, []);
 
   return (
     <header
-      className="sticky top-0 z-50 w-full border-b transition-all duration-200"
+      className="sticky top-0 z-50 w-full border-b font-display"
       style={{
-        backgroundColor: 'rgba(13, 9, 24, 0.85)',
+        backgroundColor: 'rgba(13, 9, 24, 0.92)',
         backdropFilter: 'blur(12px)',
-        borderColor: 'rgba(139, 92, 246, 0.2)',
+        borderColor: 'rgba(139, 92, 246, 0.18)',
       }}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-18 flex items-center justify-between gap-4">
-        {/* Logo & Engineering Portal Tag */}
-        <div className="flex items-center gap-3">
-          <a href="#" className="flex items-center gap-2.5 group">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 to-violet-600 flex items-center justify-center shadow-lg shadow-indigo-500/30 group-hover:scale-105 transition-transform duration-200">
-              <GraduationCap className="w-5 h-5 text-white" />
-            </div>
-            <div className="flex flex-col">
-              <div className="flex items-center gap-2">
-                <span className="font-display font-bold text-lg text-white tracking-tight">
-                  Campus<span className="text-violet-400">Prep</span>
-                </span>
-                <span className="px-2 py-0.5 rounded bg-indigo-50/10 text-indigo-400 border border-indigo-500/30 font-mono text-[11px] tracking-wider uppercase">
-                  ENGG PORTAL
-                </span>
-              </div>
-              <span className="text-[11px] font-mono text-slate-400 flex items-center gap-1.5">
-                <span className="inline-block w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                {activeBranch} • {selectedSem}
-              </span>
-            </div>
-          </a>
-        </div>
+      <div className="mx-auto flex h-20 max-w-[1600px] items-center justify-between gap-6 px-4 sm:px-6 lg:px-10">
+        {/* Logo + portal tag */}
+        <a href="#" className="flex shrink-0 items-center gap-3 group">
+          <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-violet-500/30 bg-[#1a1233] transition-transform duration-200 group-hover:scale-105">
+            {/* <GraduationCap className="h-5 w-5 text-violet-400" /> */}
+            <img alt="Campus Prep Logo" src="https://lh3.googleusercontent.com/aida/AEtjO1XtCXuAUuKeEVwItUaDBaIuvpIH2E9Jd64t1zwM27vZ5lIb8gtZhryPgETpH7MZPXkKXFt_wfgBa49nJ9HBN1ZM091kQ6PZulxAIvqmejxGbqkt3Qj1SQrHZVDpVUasjAFdd5eW_hyHO9iBXKvsM09qimD1nXk-B8-vTsbhO_4OMMPrMc2urIYLafVyJjMLrwA2O_SYBGCmFOz27IifZq96WM-BEfLs1P5-OzsFC6QTZg"></img>
+          </div>
+          <span className="text-[22px] font-bold tracking-tight text-white">
+            Campus Prep
+          </span>
+          <span className="hidden rounded-sm bg-indigo-100 px-2 py-0.5 font-mono text-[11px] font-semibold uppercase tracking-widest text-indigo-600 sm:inline-block">
+            ENGG PORTAL
+          </span>
+        </a>
 
-        {/* Desktop Navigation Links */}
-        <nav className="hidden md:flex items-center gap-1 lg:gap-2">
-          <a
-            href="#vault-section"
-            className="px-3.5 py-1.5 rounded-lg text-sm font-medium text-slate-200 hover:text-white hover:bg-white/5 transition-colors"
-          >
-            Vault
-          </a>
-          <a
-            href="#features-section"
-            className="px-3.5 py-1.5 rounded-lg text-sm font-medium text-slate-400 hover:text-slate-200 hover:bg-white/5 transition-colors flex items-center gap-1.5"
-          >
-            <Sparkles className="w-3.5 h-3.5 text-purple-400" />
-            AI Synthesizer
-          </a>
-          <a
-            href="#contributors-section"
-            className="px-3.5 py-1.5 rounded-lg text-sm font-medium text-slate-400 hover:text-slate-200 hover:bg-white/5 transition-colors"
-          >
-            Contributors
-          </a>
-          <a
-            href="#curriculum-info"
-            className="px-3.5 py-1.5 rounded-lg text-sm font-medium text-slate-400 hover:text-slate-200 hover:bg-white/5 transition-colors"
-          >
-            Syllabus Schemes
-          </a>
+        {/* Desktop nav links (centered) */}
+        <nav className="hidden items-center gap-1 lg:flex xl:gap-2">
+          {NAV_LINKS.map((link) => (
+            <a
+              key={link.label}
+              href={link.href}
+              className="rounded-lg px-3.5 py-2 text-[15px] font-extralight text-slate-400 transition-colors hover:bg-white/5 hover:text-slate-100"
+            >
+              {link.label}
+            </a>
+          ))}
         </nav>
 
-        {/* Search, Notifications & Profile Action Controls */}
-        <div className="flex items-center gap-3">
-          {/* Global Controlled Search Bar */}
-          <div className="relative hidden sm:block w-48 md:w-64 lg:w-72">
-            <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
+        {/* Search + auth buttons */}
+        <div className="flex items-center gap-3 ">
+          <div className="relative hidden w-64 md:block xl:w-80">
+            <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-300" />
             <input
+              ref={searchRef}
               type="text"
-              placeholder="Search subjects, codes, PYQs..."
+              placeholder="Search notes, syllabus, PYQs."
               value={searchQuery}
               onChange={(e) => onSearchChange?.(e.target.value)}
-              className="w-full pl-9 pr-14 py-1.5 text-xs bg-slate-900/80 border border-violet-500/25 rounded-lg text-slate-200 placeholder-slate-500 focus:outline-none focus:border-indigo-400 focus:ring-1 focus:ring-indigo-400/30 transition-all font-sans"
+              className="w-full rounded-md border border-violet-500/30 bg-[#110b20] py-2 pl-10 pr-14 text-sm text-slate-200 placeholder-slate-300 transition-all focus:border-indigo-400 focus:outline-none focus:ring-1 focus:ring-indigo-400/40"
             />
-            <kbd className="hidden lg:inline-flex items-center gap-0.5 absolute right-2.5 top-1/2 -translate-y-1/2 px-1.5 py-0.5 text-[10px] font-mono text-slate-400 bg-white/5 border border-slate-700/60 rounded">
+            <kbd className="absolute right-2.5 top-1/2 hidden -translate-y-1/2 rounded bg-slate-200 px-1.5 py-0.5 font-mono text-[11px] font-semibold text-slate-600 lg:inline-flex">
               ⌘K
             </kbd>
           </div>
 
-          {/* Notification Bell */}
+          {/* Login / Sign up */}
           <button
             type="button"
-            className="relative p-2 rounded-lg text-slate-400 hover:text-slate-200 hover:bg-white/5 transition-colors border border-transparent hover:border-violet-500/20"
-            title="Notifications"
+            onClick={onLoginClick}
+            className="hidden rounded-lg border border-violet-500/40 px-4 py-2 text-sm font-medium text-slate-200 transition-colors hover:border-violet-400 hover:bg-white/5 hover:text-white sm:inline-flex"
           >
-            <Bell className="w-4 h-4" />
-            <span className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-violet-500 ring-2 ring-[#0d0918]" />
+            Login
           </button>
-
-          {/* Upload Notes Action CTA */}
           <button
             type="button"
-            onClick={onUploadClick}
-            className="hidden lg:flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500 text-white shadow-md shadow-indigo-500/25 transition-all cursor-pointer"
+            onClick={onSignupClick}
+            className="hidden rounded-lg bg-gradient-to-r from-indigo-600 to-violet-600 px-4 py-2 text-sm font-semibold text-white shadow-md shadow-indigo-500/25 transition-all hover:from-indigo-500 hover:to-violet-500 sm:inline-flex"
           >
-            <Upload className="w-3.5 h-3.5" />
-            Upload Note
+            Sign up
           </button>
 
-          {/* User Profile Avatar with Online Beacon */}
-          <div className="relative flex items-center pl-1">
-            <button
-              type="button"
-              className="w-8 h-8 rounded-full border border-violet-500/40 bg-gradient-to-br from-indigo-600 to-purple-800 flex items-center justify-center text-xs font-semibold text-white overflow-hidden ring-2 ring-indigo-500/20 hover:scale-105 transition-transform"
-            >
-              <span>AK</span>
-            </button>
-            <span className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-emerald-400 border-2 border-[#0d0918] rounded-full" />
-          </div>
-
-          {/* Mobile Hamburger Toggle */}
+          {/* Mobile hamburger */}
           <button
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden p-2 rounded-lg text-slate-400 hover:text-slate-200 hover:bg-white/5 border border-violet-500/20"
-            aria-label="Toggle Navigation"
+            type="button"
+            onClick={() => setMobileMenuOpen((o) => !o)}
+            className="rounded-lg border border-violet-500/20 p-2 text-slate-400 hover:bg-white/5 hover:text-slate-200 lg:hidden"
+            aria-label="Toggle navigation"
+            aria-expanded={mobileMenuOpen}
           >
-            {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </button>
         </div>
       </div>
 
-      {/* Mobile Drawer */}
+      {/* Mobile drawer */}
       {mobileMenuOpen && (
-        <div className="md:hidden px-4 pt-3 pb-5 border-t border-violet-500/20 bg-[#0d0918]/95 backdrop-blur-xl space-y-3">
-          <div className="relative w-full">
-            <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
+        <div className="space-y-3 border-t border-violet-500/20 bg-[#0d0918]/95 px-4 pb-5 pt-3 backdrop-blur-xl lg:hidden">
+          <div className="relative w-full md:hidden">
+            <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-300" />
             <input
               type="text"
-              placeholder="Search notes, codes..."
+              placeholder="Search notes, syllabus, PYQs."
               value={searchQuery}
               onChange={(e) => onSearchChange?.(e.target.value)}
-              className="w-full pl-9 pr-4 py-2 text-sm bg-slate-900/90 border border-violet-500/30 rounded-lg text-slate-200 placeholder-slate-500 focus:outline-none focus:border-indigo-400 font-sans"
+              className="w-full rounded-md border border-violet-500/30 bg-[#110b20] py-2 pl-10 pr-4 text-sm text-slate-200 placeholder-slate-300 focus:border-indigo-400 focus:outline-none"
             />
           </div>
+
           <div className="flex flex-col space-y-1">
-            <a
-              href="#vault-section"
-              onClick={() => setMobileMenuOpen(false)}
-              className="px-3 py-2 rounded-lg text-sm font-medium text-slate-200 hover:bg-white/5"
+            {NAV_LINKS.map((link) => (
+              <a
+                key={link.label}
+                href={link.href}
+                onClick={() => setMobileMenuOpen(false)}
+                className="rounded-lg px-3 py-2 text-sm font-medium text-slate-300 hover:bg-white/5 hover:text-white"
+              >
+                {link.label}
+              </a>
+            ))}
+          </div>
+
+          <div className="grid grid-cols-2 gap-3 pt-1">
+            <button
+              type="button"
+              onClick={() => {
+                setMobileMenuOpen(false);
+                onLoginClick?.();
+              }}
+              className="rounded-lg border border-violet-500/40 px-4 py-2 text-sm font-medium text-slate-200 hover:bg-white/5"
             >
-              Resource Vault
-            </a>
-            <a
-              href="#features-section"
-              onClick={() => setMobileMenuOpen(false)}
-              className="px-3 py-2 rounded-lg text-sm font-medium text-slate-300 hover:bg-white/5 flex items-center gap-2"
+              Login
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                setMobileMenuOpen(false);
+                onSignupClick?.();
+              }}
+              className="rounded-lg bg-gradient-to-r from-indigo-600 to-violet-600 px-4 py-2 text-sm font-semibold text-white"
             >
-              <Sparkles className="w-4 h-4 text-purple-400" />
-              Synapse AI Revision
-            </a>
-            <a
-              href="#contributors-section"
-              onClick={() => setMobileMenuOpen(false)}
-              className="px-3 py-2 rounded-lg text-sm font-medium text-slate-300 hover:bg-white/5"
-            >
-              Hall of Contributors
-            </a>
-            <a
-              href="#curriculum-info"
-              onClick={() => setMobileMenuOpen(false)}
-              className="px-3 py-2 rounded-lg text-sm font-medium text-slate-300 hover:bg-white/5"
-            >
-              MU & SPPU Syllabus Mappings
-            </a>
+              Sign up
+            </button>
           </div>
         </div>
       )}
     </header>
   );
 }
-
