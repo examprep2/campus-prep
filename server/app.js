@@ -4,6 +4,7 @@ import cookieParser from "cookie-parser"
 import authRoutes from "./routes/authRoutes.js";
 import branchRoutes from "./routes/branchRoutes.js";
 import subjectRoutes from "./routes/subjectRoutes.js";
+import materialRoutes from "./routes/materialRoutes.js";
 
 const app = express();
 
@@ -28,5 +29,6 @@ app.get('/',(req,res)=>{
 app.use("/api/auth", authRoutes);
 app.use("/api/branches", branchRoutes);
 app.use("/api/subjects", subjectRoutes);
+app.use("/api/materials", materialRoutes);
 
 export default app;
