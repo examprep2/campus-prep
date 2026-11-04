@@ -2,6 +2,7 @@ import express from "express";
 import cors from 'cors'
 import cookieParser from "cookie-parser"
 import authRoutes from "./routes/authRoutes.js";
+import branchRoutes from "./routes/branchRoutes.js";
 
 const app = express();
 
@@ -24,5 +25,6 @@ app.get('/',(req,res)=>{
 
 //rest routes here
 app.use("/api/auth", authRoutes);
+app.use("/api/branches", branchRoutes);
 
 export default app;
