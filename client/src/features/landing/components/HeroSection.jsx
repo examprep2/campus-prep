@@ -56,9 +56,9 @@ export default function HeroSection({
 
       {/* Headline with Indigo-Violet Gradient Highlight */}
       <h1 className="font-display font-extrabold text-4xl sm:text-5xl lg:text-6xl text-white tracking-tight leading-[1.12]">
-        The Decentralized Engineering Vault for{' '}
+        Centralized Engineering Notes,{' '}
         <span className="bg-gradient-to-r from-indigo-400 via-violet-400 to-purple-400 bg-clip-text text-transparent">
-          Smarter Semesters.
+          Solved PYQs & AI Revision
         </span>
       </h1>
 
