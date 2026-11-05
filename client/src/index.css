@@ -1,23 +1,45 @@
 @import "tailwindcss";
 
+:root {
+  --color-primary: #3157D5;
+  --color-primary-hover: #2648B8;
+  --color-primary-light: #EEF2FF;
+  --color-bg: #F7F8FC;
+  --color-surface: #FFFFFF;
+  --color-text-main: #172033;
+  --color-text-secondary: #687386;
+  --color-border: #E6E9F0;
+  --color-success: #16845B;
+  --color-warning: #C58A27;
+  --color-danger: #D64B4B;
+}
+
 @theme {
   --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --font-display: "Space Grotesk", "Inter", sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
 }
 
-/* Custom scrollbar for horizontal pills and lists */
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text-main);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Subtle, clean scrollbar */
 ::-webkit-scrollbar {
   height: 6px;
   width: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: rgba(11, 8, 20, 0.8);
+  background: #F1F3F7;
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(139, 92, 246, 0.25);
+  background: #D1D5DB;
   border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(139, 92, 246, 0.5);
+  background: #9CA3AF;
 }
