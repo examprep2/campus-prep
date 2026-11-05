@@ -124,7 +124,7 @@ export default function ForgotPasswordPage() {
           </div>
 
           <div className="text-center pt-2">
-            <Link to="/login" className="text-xs text-[#687386] hover:text-[#172033]">
+            <Link to="/login" className="text-xs text-[#687386] dark:text-[#A0AEC0] hover:text-[#172033] dark:hover:text-[#F1F5F9]">
               Back to Sign In
             </Link>
           </div>
@@ -132,8 +132,8 @@ export default function ForgotPasswordPage() {
       ) : (
         <form onSubmit={handleResetPassword} className="space-y-4">
           <div className="space-y-1.5 text-left">
-            <label htmlFor="reset-otp" className="block text-xs font-semibold text-[#172033]">
-              6-Digit Reset Code <span className="text-[#D64B4B]">*</span>
+            <label htmlFor="reset-otp" className="block text-xs font-semibold text-[#172033] dark:text-[#F1F5F9]">
+              6-Digit Reset Code <span className="text-[#D64B4B] dark:text-rose-400">*</span>
             </label>
             <input
               id="reset-otp"
@@ -146,7 +146,7 @@ export default function ForgotPasswordPage() {
                 if (errorMsg) setErrorMsg('');
               }}
               placeholder="123456"
-              className="w-full text-center tracking-[0.4em] font-mono font-bold text-xl rounded-lg border border-[#E6E9F0] py-2.5 text-[#172033] placeholder:text-slate-300 focus:border-[#3157D5] focus:outline-none focus:ring-2 focus:ring-[#3157D5]/20 transition-colors"
+              className="w-full text-center tracking-[0.4em] font-mono font-bold text-xl rounded-lg border border-[#E6E9F0] dark:border-[#30394A] bg-white dark:bg-[#151923] py-2.5 text-[#172033] dark:text-[#F1F5F9] placeholder:text-slate-300 dark:placeholder:text-slate-600 focus:border-[#3157D5] dark:focus:border-[#6B8CFF] focus:outline-none focus:ring-2 focus:ring-[#3157D5]/20 dark:focus:ring-[#6B8CFF]/20 transition-colors"
               autoFocus
             />
           </div>
@@ -173,7 +173,7 @@ export default function ForgotPasswordPage() {
             required
           />
 
-          {errorMsg && <p className="text-xs text-[#D64B4B] font-medium">{errorMsg}</p>}
+          {errorMsg && <p className="text-xs text-[#D64B4B] dark:text-rose-400 font-medium">{errorMsg}</p>}
 
           <div className="pt-2">
             <Button
@@ -191,11 +191,11 @@ export default function ForgotPasswordPage() {
             <button
               type="button"
               onClick={() => setStep(1)}
-              className="text-[#687386] hover:text-[#172033] cursor-pointer"
+              className="text-[#687386] dark:text-[#A0AEC0] hover:text-[#172033] dark:hover:text-[#F1F5F9] cursor-pointer"
             >
               Change Email
             </button>
-            <Link to="/login" className="text-[#3157D5] font-semibold hover:underline">
+            <Link to="/login" className="text-[#3157D5] dark:text-[#6B8CFF] font-semibold hover:underline">
               Back to Sign In
             </Link>
           </div>

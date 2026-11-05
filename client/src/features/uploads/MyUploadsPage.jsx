@@ -71,31 +71,31 @@ export default function MyUploadsPage() {
       ) : (
         <div className="space-y-4">
           {/* Responsive Cards / Table */}
-          <div className="bg-white rounded-2xl border border-[#E6E9F0] shadow-2xs divide-y divide-[#E6E9F0] overflow-hidden">
+          <div className="bg-white dark:bg-[#1B2230] rounded-2xl border border-[#E6E9F0] dark:border-[#30394A] shadow-2xs divide-y divide-[#E6E9F0] dark:divide-[#30394A] overflow-hidden transition-colors">
             {materials.map((item) => (
-              <div key={item._id} className="p-5 hover:bg-slate-50/60 transition-colors space-y-3">
+              <div key={item._id} className="p-5 hover:bg-slate-50/60 dark:hover:bg-[#222B3A]/50 transition-colors space-y-3">
                 <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
                   <div className="flex items-start gap-3.5 min-w-0">
                     <FileTypeIcon type={item.type} size="md" className="shrink-0 mt-0.5" />
                     <div className="min-w-0 space-y-1">
                       <div className="flex flex-wrap items-center gap-2">
-                        <span className="text-[11px] font-mono font-semibold text-[#3157D5] bg-blue-50 px-2 py-0.5 rounded border border-blue-100">
+                        <span className="text-[11px] font-mono font-semibold text-[#3157D5] dark:text-[#6B8CFF] bg-blue-50 dark:bg-blue-950/40 px-2 py-0.5 rounded border border-blue-100 dark:border-blue-900/40">
                           {item.subject?.code || 'GEN'}
                         </span>
-                        <span className="text-xs text-slate-500 font-medium">
+                        <span className="text-xs text-slate-500 dark:text-slate-400 font-medium">
                           {item.subject?.name}
                         </span>
-                        <span className="text-slate-300">•</span>
-                        <span className="text-[11px] uppercase tracking-wider text-slate-500 font-semibold">
+                        <span className="text-slate-300 dark:text-slate-600">•</span>
+                        <span className="text-[11px] uppercase tracking-wider text-slate-500 dark:text-slate-400 font-semibold">
                           {item.type}
                         </span>
                       </div>
 
-                      <h3 className="text-sm sm:text-base font-semibold text-[#172033] leading-snug">
+                      <h3 className="text-sm sm:text-base font-semibold text-[#172033] dark:text-[#F1F5F9] leading-snug">
                         {item.title}
                       </h3>
 
-                      <p className="text-xs text-[#687386]">
+                      <p className="text-xs text-[#687386] dark:text-[#A0AEC0]">
                         Uploaded on {new Date(item.createdAt).toLocaleDateString()}
                         {item.examYear ? ` • Exam Year ${item.examYear}` : ''}
                       </p>
@@ -109,7 +109,7 @@ export default function MyUploadsPage() {
                       href={item.fileUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#3157D5] hover:underline"
+                      className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#3157D5] dark:text-[#6B8CFF] hover:underline"
                     >
                       <ExternalLink className="w-3.5 h-3.5" />
                       <span>View File</span>
@@ -119,11 +119,11 @@ export default function MyUploadsPage() {
 
                 {/* If rejected, show reason callout */}
                 {item.status === 'rejected' && item.rejectionReason && (
-                  <div className="p-3 rounded-xl bg-rose-50 border border-rose-200 text-xs text-[#D64B4B] flex items-start gap-2.5">
+                  <div className="p-3 rounded-xl bg-rose-50 dark:bg-rose-950/30 border border-rose-200 dark:border-rose-900/50 text-xs text-[#D64B4B] dark:text-rose-400 flex items-start gap-2.5">
                     <AlertTriangle className="w-4 h-4 shrink-0 mt-0.5" />
                     <div>
                       <span className="font-semibold block">Moderator Feedback:</span>
-                      <p className="text-rose-800 mt-0.5 leading-relaxed">
+                      <p className="text-rose-800 dark:text-rose-300 mt-0.5 leading-relaxed">
                         {item.rejectionReason}
                       </p>
                     </div>
@@ -131,7 +131,7 @@ export default function MyUploadsPage() {
                 )}
 
                 {item.status === 'pending' && (
-                  <div className="p-2.5 rounded-lg bg-amber-50/60 border border-amber-100 text-[11px] text-[#C58A27] flex items-center gap-2">
+                  <div className="p-2.5 rounded-lg bg-amber-50/60 dark:bg-amber-950/30 border border-amber-100 dark:border-amber-900/50 text-[11px] text-[#C58A27] dark:text-amber-400 flex items-center gap-2">
                     <Clock className="w-3.5 h-3.5 shrink-0" />
                     <span>
                       Awaiting administrative approval. You will receive a notification once verified.

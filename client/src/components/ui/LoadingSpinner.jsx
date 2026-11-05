@@ -10,7 +10,7 @@ export default function LoadingSpinner({ size = 'md', className = '' }) {
 
   return (
     <div
-      className={`inline-block rounded-full border-slate-200 border-t-[#3157D5] animate-spin ${sizeMap[size] || sizeMap.md} ${className}`}
+      className={`inline-block rounded-full border-slate-200 dark:border-slate-700 border-t-[#3157D5] dark:border-t-[#6B8CFF] animate-spin ${sizeMap[size] || sizeMap.md} ${className}`}
       role="status"
       aria-label="Loading"
     />

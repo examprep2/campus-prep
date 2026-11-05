@@ -11,7 +11,7 @@ export default function LandingPage() {
   const [searchQuery, setSearchQuery] = useState('');
 
   return (
-    <div className="min-h-screen bg-[#F7F8FC] text-[#172033] font-sans selection:bg-[#3157D5]/15 selection:text-[#3157D5]">
+    <div className="min-h-screen bg-[#F7F8FC] dark:bg-[#0F1117] text-[#172033] dark:text-[#F1F5F9] font-sans selection:bg-[#3157D5]/15 selection:text-[#3157D5] dark:selection:bg-[#6B8CFF]/20 dark:selection:text-[#6B8CFF] transition-colors">
       {/* Top Navbar */}
       <Navbar
         searchQuery={searchQuery}

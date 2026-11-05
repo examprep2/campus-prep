@@ -28,7 +28,7 @@ export default function StudentLayout() {
   }, []);
 
   return (
-    <div className="min-h-screen flex bg-[#F7F8FC]">
+    <div className="min-h-screen flex bg-[#F7F8FC] dark:bg-[#0F1117] transition-colors">
       {/* Desktop Sidebar */}
       <div className="hidden lg:block w-64 shrink-0 h-screen sticky top-0">
         <StudentSidebar unreadCount={unreadCount} />
@@ -38,11 +38,11 @@ export default function StudentLayout() {
       {mobileOpen && (
         <div className="fixed inset-0 z-50 lg:hidden flex">
           <div
-            className="fixed inset-0 bg-slate-900/40 backdrop-blur-xs transition-opacity"
+            className="fixed inset-0 bg-slate-900/40 dark:bg-black/70 backdrop-blur-xs transition-opacity"
             onClick={() => setMobileOpen(false)}
             aria-hidden="true"
           />
-          <div className="relative w-64 max-w-xs h-full bg-white z-10 shadow-2xl animate-in slide-in-from-left duration-200">
+          <div className="relative w-64 max-w-xs h-full bg-white dark:bg-[#151923] z-10 shadow-2xl animate-in slide-in-from-left duration-200">
             <StudentSidebar
               unreadCount={unreadCount}
               onCloseMobile={() => setMobileOpen(false)}

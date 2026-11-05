@@ -4,7 +4,25 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Campus Prep — Decentralized Engineering Knowledge Vault</title>
+    <title>Campus-Prep — University Study Material Platform</title>
+    <!-- Prevent flash of unstyled theme on load -->
+    <script>
+      (function() {
+        try {
+          const stored = localStorage.getItem('theme') || 'system';
+          const isDark = stored === 'dark' || (stored === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+          if (isDark) {
+            document.documentElement.classList.add('dark');
+            document.documentElement.setAttribute('data-theme', 'dark');
+            document.documentElement.style.colorScheme = 'dark';
+          } else {
+            document.documentElement.classList.remove('dark');
+            document.documentElement.setAttribute('data-theme', 'light');
+            document.documentElement.style.colorScheme = 'light';
+          }
+        } catch (e) {}
+      })();
+    </script>
     <!-- Google Fonts: Space Grotesk, Inter, JetBrains Mono -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -13,7 +31,7 @@
       rel="stylesheet"
     />
   </head>
-  <body class="bg-[#0b0814] text-slate-200 antialiased selection:bg-indigo-500/30 selection:text-indigo-200 font-sans">
+  <body class="antialiased selection:bg-[#3157D5]/20 selection:text-[#3157D5] font-sans">
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>

@@ -51,26 +51,26 @@ export const ToastProvider = ({ children }) => {
   const getIcon = (type) => {
     switch (type) {
       case 'success':
-        return <CheckCircle2 className="w-5 h-5 text-emerald-600 shrink-0" />;
+        return <CheckCircle2 className="w-5 h-5 text-emerald-600 dark:text-emerald-400 shrink-0" />;
       case 'error':
-        return <AlertCircle className="w-5 h-5 text-rose-600 shrink-0" />;
+        return <AlertCircle className="w-5 h-5 text-rose-600 dark:text-rose-400 shrink-0" />;
       case 'warning':
-        return <AlertTriangle className="w-5 h-5 text-amber-600 shrink-0" />;
+        return <AlertTriangle className="w-5 h-5 text-amber-600 dark:text-amber-400 shrink-0" />;
       default:
-        return <Info className="w-5 h-5 text-blue-600 shrink-0" />;
+        return <Info className="w-5 h-5 text-blue-600 dark:text-[#6B8CFF] shrink-0" />;
     }
   };
 
   const getStyles = (type) => {
     switch (type) {
       case 'success':
-        return 'border-emerald-200 bg-white shadow-emerald-500/10 text-slate-800';
+        return 'border-emerald-200 dark:border-emerald-800/60 bg-white dark:bg-[#1B2230] shadow-emerald-500/10 text-slate-800 dark:text-slate-100';
       case 'error':
-        return 'border-rose-200 bg-white shadow-rose-500/10 text-slate-800';
+        return 'border-rose-200 dark:border-rose-800/60 bg-white dark:bg-[#1B2230] shadow-rose-500/10 text-slate-800 dark:text-slate-100';
       case 'warning':
-        return 'border-amber-200 bg-white shadow-amber-500/10 text-slate-800';
+        return 'border-amber-200 dark:border-amber-800/60 bg-white dark:bg-[#1B2230] shadow-amber-500/10 text-slate-800 dark:text-slate-100';
       default:
-        return 'border-blue-200 bg-white shadow-blue-500/10 text-slate-800';
+        return 'border-blue-200 dark:border-blue-800/60 bg-white dark:bg-[#1B2230] shadow-blue-500/10 text-slate-800 dark:text-slate-100';
     }
   };
 
@@ -89,13 +89,13 @@ export const ToastProvider = ({ children }) => {
           >
             {getIcon(toast.type)}
             <div className="flex-1 min-w-0">
-              {toast.title && <p className="text-xs font-semibold uppercase tracking-wider text-slate-500">{toast.title}</p>}
-              <p className="text-sm font-medium text-slate-800 leading-snug">{toast.message}</p>
+              {toast.title && <p className="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">{toast.title}</p>}
+              <p className="text-sm font-medium text-slate-800 dark:text-[#F1F5F9] leading-snug">{toast.message}</p>
             </div>
             <button
               type="button"
               onClick={() => removeToast(toast.id)}
-              className="text-slate-400 hover:text-slate-600 p-0.5 rounded transition-colors"
+              className="text-slate-400 hover:text-slate-600 dark:text-slate-400 dark:hover:text-slate-200 p-0.5 rounded transition-colors cursor-pointer"
               aria-label="Dismiss notification"
             >
               <X className="w-4 h-4" />
