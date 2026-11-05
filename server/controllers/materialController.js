@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 import Material from "../models/Material.js";
 import Subject from "../models/Subject.js";
 import uploadPdf from "../utils/uploadToCloudinary.js";
+import Notification from "../models/Notification.js";
 
 const MATERIAL_TYPES = ["notes", "book", "qp", "syllabus"];
 
@@ -276,6 +277,14 @@ export const approveMaterial = async (req, res) => {
     material.reviewedBy = req.user._id;
     material.reviewedAt = new Date();
     await material.save();
+        // A failed notice must never block the approval itself
+    await Notification.create({
+      user: material.uploadedBy,
+      type: "upload_approved",
+      title: "Your upload was approved",
+      message: `"${material.title}" is now live for everyone.`,
+      material: material._id,
+    }).catch((error) => console.error("Notification error:", error.message));
 
     return res
       .status(200)
@@ -324,6 +333,13 @@ export const rejectMaterial = async (req, res) => {
     material.reviewedBy = req.user._id;
     material.reviewedAt = new Date();
     await material.save();
+    await Notification.create({
+      user: material.uploadedBy,
+      type: "upload_rejected",
+      title: "Your upload was rejected",
+      message: `"${material.title}" was rejected: ${reason}`,
+      material: material._id,
+    }).catch((error) => console.error("Notification error:", error.message));
 
     return res
       .status(200)
