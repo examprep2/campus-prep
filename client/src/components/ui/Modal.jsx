@@ -24,7 +24,7 @@ export default function Modal({
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
       {/* Backdrop */}
       <div
-        className="fixed inset-0 bg-slate-900/40 backdrop-blur-xs transition-opacity animate-in fade-in"
+        className="fixed inset-0 bg-slate-900/40 dark:bg-black/70 backdrop-blur-xs transition-opacity animate-in fade-in"
         onClick={onClose}
         aria-hidden="true"
       />
@@ -34,23 +34,23 @@ export default function Modal({
         role="dialog"
         aria-modal="true"
         aria-labelledby={title ? 'modal-title' : undefined}
-        className={`relative w-full ${maxWidth} rounded-2xl bg-white border border-[#E6E9F0] shadow-xl overflow-hidden z-10 transition-all animate-in fade-in zoom-in-95 duration-150`}
+        className={`relative w-full ${maxWidth} rounded-2xl bg-white dark:bg-[#1B2230] border border-[#E6E9F0] dark:border-[#30394A] shadow-xl overflow-hidden z-10 transition-all animate-in fade-in zoom-in-95 duration-150`}
       >
         {(title || onClose) && (
-          <div className="flex items-start justify-between p-5 border-b border-[#E6E9F0] bg-slate-50/50">
+          <div className="flex items-start justify-between p-5 border-b border-[#E6E9F0] dark:border-[#30394A] bg-slate-50/50 dark:bg-[#151923]/60">
             <div>
               {title && (
-                <h3 id="modal-title" className="text-base font-semibold text-[#172033]">
+                <h3 id="modal-title" className="text-base font-semibold text-[#172033] dark:text-[#F1F5F9]">
                   {title}
                 </h3>
               )}
-              {description && <p className="text-xs text-[#687386] mt-0.5">{description}</p>}
+              {description && <p className="text-xs text-[#687386] dark:text-[#A0AEC0] mt-0.5">{description}</p>}
             </div>
             {onClose && (
               <button
                 type="button"
                 onClick={onClose}
-                className="text-slate-400 hover:text-slate-600 p-1 rounded-lg transition-colors cursor-pointer"
+                className="text-slate-400 hover:text-slate-600 dark:text-slate-400 dark:hover:text-slate-200 p-1 rounded-lg hover:bg-slate-100 dark:hover:bg-[#222B3A] transition-colors cursor-pointer"
                 aria-label="Close dialog"
               >
                 <X className="w-4 h-4" />
@@ -58,7 +58,7 @@ export default function Modal({
             )}
           </div>
         )}
-        <div className="p-6">{children}</div>
+        <div className="p-6 text-slate-800 dark:text-slate-200">{children}</div>
       </div>
     </div>
   );

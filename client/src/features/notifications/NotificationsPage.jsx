@@ -14,7 +14,6 @@ import {
   XCircle,
   MessageSquare,
   Clock,
-  ExternalLink,
 } from 'lucide-react';
 
 export default function NotificationsPage() {
@@ -92,20 +91,20 @@ export default function NotificationsPage() {
     switch (type) {
       case 'upload_approved':
         return (
-          <div className="w-9 h-9 rounded-xl bg-emerald-50 text-[#16845B] border border-emerald-100 flex items-center justify-center shrink-0">
+          <div className="w-9 h-9 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 text-[#16845B] dark:text-emerald-400 border border-emerald-100 dark:border-emerald-900/40 flex items-center justify-center shrink-0">
             <CheckCircle2 className="w-4 h-4" />
           </div>
         );
       case 'upload_rejected':
         return (
-          <div className="w-9 h-9 rounded-xl bg-rose-50 text-[#D64B4B] border border-rose-100 flex items-center justify-center shrink-0">
+          <div className="w-9 h-9 rounded-xl bg-rose-50 dark:bg-rose-950/40 text-[#D64B4B] dark:text-rose-400 border border-rose-100 dark:border-rose-900/40 flex items-center justify-center shrink-0">
             <XCircle className="w-4 h-4" />
           </div>
         );
       case 'admin_message':
       default:
         return (
-          <div className="w-9 h-9 rounded-xl bg-blue-50 text-[#3157D5] border border-blue-100 flex items-center justify-center shrink-0">
+          <div className="w-9 h-9 rounded-xl bg-blue-50 dark:bg-blue-950/40 text-[#3157D5] dark:text-[#6B8CFF] border border-blue-100 dark:border-blue-900/40 flex items-center justify-center shrink-0">
             <MessageSquare className="w-4 h-4" />
           </div>
         );
@@ -133,7 +132,7 @@ export default function NotificationsPage() {
       />
 
       {/* Filter Tabs */}
-      <div className="flex items-center gap-2 border-b border-[#E6E9F0] pb-3 text-xs font-medium">
+      <div className="flex items-center gap-2 border-b border-[#E6E9F0] dark:border-[#30394A] pb-3 text-xs font-medium">
         <button
           type="button"
           onClick={() => {
@@ -142,8 +141,8 @@ export default function NotificationsPage() {
           }}
           className={`px-3 py-1.5 rounded-lg transition-colors cursor-pointer ${
             !filterUnread
-              ? 'bg-[#3157D5] text-white font-semibold shadow-2xs'
-              : 'text-slate-600 hover:bg-slate-100'
+              ? 'bg-[#3157D5] dark:bg-[#6B8CFF] text-white dark:text-slate-950 font-semibold shadow-2xs'
+              : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-[#222B3A]'
           }`}
         >
           All Activity
@@ -157,15 +156,15 @@ export default function NotificationsPage() {
           }}
           className={`px-3 py-1.5 rounded-lg transition-colors cursor-pointer flex items-center gap-1.5 ${
             filterUnread
-              ? 'bg-[#3157D5] text-white font-semibold shadow-2xs'
-              : 'text-slate-600 hover:bg-slate-100'
+              ? 'bg-[#3157D5] dark:bg-[#6B8CFF] text-white dark:text-slate-950 font-semibold shadow-2xs'
+              : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-[#222B3A]'
           }`}
         >
           <span>Unread Only</span>
           {unreadCount > 0 && (
             <span
               className={`px-1.5 py-0.2 rounded-full text-[10px] font-bold ${
-                filterUnread ? 'bg-white text-[#3157D5]' : 'bg-blue-100 text-[#3157D5]'
+                filterUnread ? 'bg-white text-[#3157D5] dark:text-slate-950' : 'bg-blue-100 dark:bg-blue-950/60 text-[#3157D5] dark:text-[#6B8CFF]'
               }`}
             >
               {unreadCount}
@@ -186,31 +185,31 @@ export default function NotificationsPage() {
         />
       ) : (
         <div className="space-y-4">
-          <div className="bg-white rounded-2xl border border-[#E6E9F0] shadow-2xs divide-y divide-[#E6E9F0] overflow-hidden">
+          <div className="bg-white dark:bg-[#1B2230] rounded-2xl border border-[#E6E9F0] dark:border-[#30394A] shadow-2xs divide-y divide-[#E6E9F0] dark:divide-[#30394A] overflow-hidden transition-colors">
             {notifications.map((item) => (
               <div
                 key={item._id}
                 className={`p-4 sm:p-5 flex items-start gap-4 transition-colors ${
-                  !item.isRead ? 'bg-blue-50/20' : 'hover:bg-slate-50/50'
+                  !item.isRead ? 'bg-blue-50/20 dark:bg-blue-950/20' : 'hover:bg-slate-50/50 dark:hover:bg-[#222B3A]/40'
                 }`}
               >
                 {renderIcon(item.type)}
 
                 <div className="flex-1 min-w-0 space-y-1">
                   <div className="flex items-center justify-between gap-2">
-                    <h3 className="text-sm font-semibold text-[#172033] flex items-center gap-2">
+                    <h3 className="text-sm font-semibold text-[#172033] dark:text-[#F1F5F9] flex items-center gap-2">
                       <span>{item.title}</span>
                       {!item.isRead && (
-                        <span className="w-2 h-2 rounded-full bg-[#3157D5] inline-block" />
+                        <span className="w-2 h-2 rounded-full bg-[#3157D5] dark:bg-[#6B8CFF] inline-block" />
                       )}
                     </h3>
-                    <span className="text-[11px] text-slate-400 shrink-0 flex items-center gap-1">
+                    <span className="text-[11px] text-slate-400 dark:text-slate-500 shrink-0 flex items-center gap-1">
                       <Clock className="w-3 h-3" />
                       <span>{new Date(item.createdAt).toLocaleString()}</span>
                     </span>
                   </div>
 
-                  <p className="text-xs sm:text-sm text-[#687386] leading-relaxed">
+                  <p className="text-xs sm:text-sm text-[#687386] dark:text-[#A0AEC0] leading-relaxed">
                     {item.message}
                   </p>
 
@@ -219,7 +218,7 @@ export default function NotificationsPage() {
                       <button
                         type="button"
                         onClick={() => handleMarkOne(item._id)}
-                        className="text-[11px] font-semibold text-[#3157D5] hover:underline cursor-pointer"
+                        className="text-[11px] font-semibold text-[#3157D5] dark:text-[#6B8CFF] hover:underline cursor-pointer"
                       >
                         Mark as read
                       </button>

@@ -76,7 +76,7 @@ export default function LoginPage() {
     >
       <form onSubmit={handleSubmit} className="space-y-4">
         {errorAlert && (
-          <div className="p-3 rounded-lg bg-rose-50 border border-rose-200 text-xs text-[#D64B4B] font-medium flex items-center gap-2">
+          <div className="p-3 rounded-lg bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-900/60 text-xs text-[#D64B4B] dark:text-rose-400 font-medium flex items-center gap-2">
             <AlertCircle className="w-4 h-4 shrink-0" />
             <span>{errorAlert}</span>
           </div>
@@ -112,7 +112,7 @@ export default function LoginPage() {
           <div className="text-right pt-0.5">
             <Link
               to="/forgot-password"
-              className="text-xs font-medium text-[#3157D5] hover:underline"
+              className="text-xs font-medium text-[#3157D5] dark:text-[#6B8CFF] hover:underline"
             >
               Forgot password?
             </Link>
@@ -131,9 +131,9 @@ export default function LoginPage() {
           </Button>
         </div>
 
-        <p className="text-center text-xs text-[#687386] pt-2">
+        <p className="text-center text-xs text-[#687386] dark:text-[#A0AEC0] pt-2">
           Don't have an account yet?{' '}
-          <Link to="/signup" className="font-semibold text-[#3157D5] hover:underline">
+          <Link to="/signup" className="font-semibold text-[#3157D5] dark:text-[#6B8CFF] hover:underline">
             Register as a Student
           </Link>
         </p>

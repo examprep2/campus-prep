@@ -10,7 +10,7 @@ import ErrorState from '../../components/ui/ErrorState';
 import { branchApi } from '../../api/branchApi';
 import { useToast } from '../../context/ToastContext';
 import { getErrorMessage } from '../../api/axios';
-import { Network, Plus, Edit2, CheckCircle2, XCircle } from 'lucide-react';
+import { Network, Plus, Edit2 } from 'lucide-react';
 
 export default function AdminBranchesPage() {
   const { success, error: toastError } = useToast();
@@ -138,11 +138,11 @@ export default function AdminBranchesPage() {
           onAction={openCreateModal}
         />
       ) : (
-        <div className="bg-white rounded-2xl border border-[#E6E9F0] shadow-2xs overflow-hidden">
+        <div className="bg-white dark:bg-[#1B2230] rounded-2xl border border-[#E6E9F0] dark:border-[#30394A] shadow-2xs overflow-hidden transition-colors">
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse">
               <thead>
-                <tr className="border-b border-[#E6E9F0] bg-slate-50 text-[11px] font-semibold text-slate-500 uppercase tracking-wider">
+                <tr className="border-b border-[#E6E9F0] dark:border-[#30394A] bg-slate-50 dark:bg-[#151923] text-[11px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
                   <th className="p-4">Branch Name</th>
                   <th className="p-4">Department Code</th>
                   <th className="p-4">Visibility Status</th>
@@ -150,12 +150,12 @@ export default function AdminBranchesPage() {
                   <th className="p-4 text-right">Action</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-[#E6E9F0] text-xs">
+              <tbody className="divide-y divide-[#E6E9F0] dark:divide-[#30394A] text-xs">
                 {branches.map((b) => (
-                  <tr key={b._id} className="hover:bg-slate-50/60 transition-colors">
-                    <td className="p-4 font-semibold text-slate-900">{b.name}</td>
+                  <tr key={b._id} className="hover:bg-slate-50/60 dark:hover:bg-[#222B3A]/40 transition-colors">
+                    <td className="p-4 font-semibold text-slate-900 dark:text-[#F1F5F9]">{b.name}</td>
                     <td className="p-4">
-                      <span className="px-2 py-0.5 rounded bg-blue-50 text-[#3157D5] border border-blue-100 font-mono font-semibold">
+                      <span className="px-2 py-0.5 rounded bg-blue-50 dark:bg-blue-950/40 text-[#3157D5] dark:text-[#6B8CFF] border border-blue-100 dark:border-blue-900/40 font-mono font-semibold">
                         {b.code}
                       </span>
                     </td>
@@ -166,7 +166,7 @@ export default function AdminBranchesPage() {
                         <StatusBadge status="inactive" />
                       )}
                     </td>
-                    <td className="p-4 text-slate-500">
+                    <td className="p-4 text-slate-500 dark:text-slate-400">
                       {new Date(b.updatedAt || b.createdAt).toLocaleDateString()}
                     </td>
                     <td className="p-4 text-right">
@@ -224,15 +224,15 @@ export default function AdminBranchesPage() {
                 id="branch-active"
                 checked={formData.isActive}
                 onChange={(e) => setFormData({ ...formData, isActive: e.target.checked })}
-                className="w-4 h-4 rounded text-[#3157D5] border-slate-300 focus:ring-[#3157D5]"
+                className="w-4 h-4 rounded text-[#3157D5] dark:text-[#6B8CFF] border-slate-300 dark:border-[#30394A] dark:bg-[#151923] focus:ring-[#3157D5]"
               />
-              <label htmlFor="branch-active" className="text-xs font-medium text-slate-700">
+              <label htmlFor="branch-active" className="text-xs font-medium text-slate-700 dark:text-slate-300">
                 Active & visible for student signups and filtering
               </label>
             </div>
           )}
 
-          <div className="flex items-center justify-end gap-3 pt-4 border-t border-[#E6E9F0]">
+          <div className="flex items-center justify-end gap-3 pt-4 border-t border-[#E6E9F0] dark:border-[#30394A]">
             <Button
               variant="outline"
               size="sm"

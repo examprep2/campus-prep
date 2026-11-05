@@ -210,7 +210,7 @@ export default function AdminUsersPage() {
       />
 
       {/* Filter and Search Bar */}
-      <div className="p-4 rounded-2xl bg-white border border-[#E6E9F0] shadow-2xs space-y-3">
+      <div className="p-4 rounded-2xl bg-white dark:bg-[#1B2230] border border-[#E6E9F0] dark:border-[#30394A] shadow-2xs space-y-3 transition-colors">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
           <SearchBar
             value={search}
@@ -286,11 +286,11 @@ export default function AdminUsersPage() {
         />
       ) : (
         <div className="space-y-4">
-          <div className="bg-white rounded-2xl border border-[#E6E9F0] shadow-2xs overflow-hidden">
+          <div className="bg-white dark:bg-[#1B2230] rounded-2xl border border-[#E6E9F0] dark:border-[#30394A] shadow-2xs overflow-hidden transition-colors">
             <div className="overflow-x-auto">
               <table className="w-full text-left border-collapse">
                 <thead>
-                  <tr className="border-b border-[#E6E9F0] bg-slate-50 text-[11px] font-semibold text-slate-500 uppercase tracking-wider">
+                  <tr className="border-b border-[#E6E9F0] dark:border-[#30394A] bg-slate-50 dark:bg-[#151923] text-[11px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
                     <th className="p-4">User</th>
                     <th className="p-4">Academic Branch</th>
                     <th className="p-4">Year & Sem</th>
@@ -299,44 +299,44 @@ export default function AdminUsersPage() {
                     <th className="p-4 text-right">Actions</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-[#E6E9F0] text-xs">
+                <tbody className="divide-y divide-[#E6E9F0] dark:divide-[#30394A] text-xs">
                   {users.map((u) => {
                     const isSelf = String(currentUser?._id) === String(u._id);
                     return (
-                      <tr key={u._id} className="hover:bg-slate-50/60 transition-colors">
+                      <tr key={u._id} className="hover:bg-slate-50/60 dark:hover:bg-[#222B3A]/40 transition-colors">
                         <td className="p-4">
                           <div className="flex items-center gap-3">
-                            <div className="w-8 h-8 rounded-full bg-slate-100 text-slate-700 font-semibold text-xs flex items-center justify-center shrink-0">
+                            <div className="w-8 h-8 rounded-full bg-slate-100 dark:bg-[#222B3A] text-slate-700 dark:text-slate-300 font-semibold text-xs flex items-center justify-center shrink-0 border border-slate-200 dark:border-[#30394A]">
                               {u.name.charAt(0).toUpperCase()}
                             </div>
                             <div className="min-w-0">
-                              <span className="font-semibold text-slate-900 block truncate">
+                              <span className="font-semibold text-slate-900 dark:text-[#F1F5F9] block truncate">
                                 {u.name} {isSelf && '(You)'}
                               </span>
-                              <span className="text-slate-500 text-[11px] block truncate">
+                              <span className="text-slate-500 dark:text-slate-400 text-[11px] block truncate">
                                 {u.email}
                               </span>
                             </div>
                           </div>
                         </td>
 
-                        <td className="p-4 text-slate-700">
+                        <td className="p-4 text-slate-700 dark:text-slate-300">
                           {u.branch ? (
                             <span>
                               {u.branch.name} ({u.branch.code})
                             </span>
                           ) : (
-                            <span className="text-slate-400">—</span>
+                            <span className="text-slate-400 dark:text-slate-500">—</span>
                           )}
                         </td>
 
-                        <td className="p-4 text-slate-700">
+                        <td className="p-4 text-slate-700 dark:text-slate-300">
                           {u.year && u.semester ? (
                             <span>
                               Year {u.year} • Sem {u.semester}
                             </span>
                           ) : (
-                            <span className="text-slate-400">—</span>
+                            <span className="text-slate-400 dark:text-slate-500">—</span>
                           )}
                         </td>
 
@@ -371,7 +371,7 @@ export default function AdminUsersPage() {
                                 title="Send in-app notification"
                                 className="px-2"
                               >
-                                <Mail className="w-3.5 h-3.5 text-slate-600" />
+                                <Mail className="w-3.5 h-3.5 text-slate-600 dark:text-slate-300" />
                               </Button>
 
                               {u.isBlocked ? (
@@ -383,7 +383,7 @@ export default function AdminUsersPage() {
                                     setUnblockDialogOpen(true);
                                   }}
                                   title="Unblock user"
-                                  className="text-emerald-700 hover:text-emerald-800 px-2"
+                                  className="text-emerald-700 dark:text-emerald-400 hover:text-emerald-800 px-2"
                                 >
                                   <CheckCircle className="w-3.5 h-3.5" />
                                 </Button>
@@ -396,7 +396,7 @@ export default function AdminUsersPage() {
                                     setBlockDialogOpen(true);
                                   }}
                                   title="Block user"
-                                  className="text-[#D64B4B] hover:text-rose-700 px-2"
+                                  className="text-[#D64B4B] dark:text-rose-400 hover:text-rose-700 px-2"
                                 >
                                   <Ban className="w-3.5 h-3.5" />
                                 </Button>
@@ -410,13 +410,13 @@ export default function AdminUsersPage() {
                                   setDeleteDialogOpen(true);
                                 }}
                                 title="Delete user"
-                                className="text-slate-400 hover:text-[#D64B4B] px-2"
+                                className="text-slate-400 dark:text-slate-500 hover:text-[#D64B4B] dark:hover:text-rose-400 px-2"
                               >
                                 <Trash2 className="w-3.5 h-3.5" />
                               </Button>
                             </div>
                           ) : (
-                            <span className="text-[11px] text-slate-400 italic">Protected</span>
+                            <span className="text-[11px] text-slate-400 dark:text-slate-500 italic">Protected</span>
                           )}
                         </td>
                       </tr>
@@ -492,8 +492,8 @@ export default function AdminUsersPage() {
           />
 
           <div className="space-y-1.5 text-left">
-            <label htmlFor="admin-msg" className="block text-xs font-semibold text-[#172033]">
-              Message Content <span className="text-[#D64B4B]">*</span>
+            <label htmlFor="admin-msg" className="block text-xs font-semibold text-[#172033] dark:text-[#F1F5F9]">
+              Message Content <span className="text-[#D64B4B] dark:text-rose-400">*</span>
             </label>
             <textarea
               id="admin-msg"
@@ -502,15 +502,15 @@ export default function AdminUsersPage() {
               placeholder="Type your message for this student..."
               value={messageData.message}
               onChange={(e) => setMessageData({ ...messageData, message: e.target.value })}
-              className="w-full rounded-lg border border-[#E6E9F0] bg-white p-3 text-sm text-[#172033] placeholder:text-slate-400 focus:border-[#3157D5] focus:outline-none focus:ring-2 focus:ring-[#3157D5]/20 transition-colors"
+              className="w-full rounded-lg border border-[#E6E9F0] dark:border-[#30394A] bg-white dark:bg-[#151923] p-3 text-sm text-[#172033] dark:text-[#F1F5F9] placeholder:text-slate-400 dark:placeholder:text-slate-600 focus:border-[#3157D5] dark:focus:border-[#6B8CFF] focus:outline-none focus:ring-2 focus:ring-[#3157D5]/20 dark:focus:ring-[#6B8CFF]/20 transition-colors"
               required
             />
-            <div className="text-right text-[11px] text-slate-400">
+            <div className="text-right text-[11px] text-slate-400 dark:text-slate-500">
               {messageData.message.length}/500
             </div>
           </div>
 
-          <div className="flex items-center justify-end gap-3 pt-3 border-t border-[#E6E9F0]">
+          <div className="flex items-center justify-end gap-3 pt-3 border-t border-[#E6E9F0] dark:border-[#30394A]">
             <Button
               variant="outline"
               size="sm"

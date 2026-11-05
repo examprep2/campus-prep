@@ -10,13 +10,13 @@ export default function ErrorState({
 }) {
   return (
     <div
-      className={`flex flex-col items-center justify-center p-8 sm:p-12 text-center rounded-2xl border border-rose-200 bg-rose-50/30 ${className}`}
+      className={`flex flex-col items-center justify-center p-8 sm:p-12 text-center rounded-2xl border border-rose-200 dark:border-rose-900/60 bg-rose-50/30 dark:bg-rose-950/20 ${className}`}
     >
-      <div className="w-12 h-12 rounded-xl bg-rose-100 flex items-center justify-center text-[#D64B4B] mb-3.5">
+      <div className="w-12 h-12 rounded-xl bg-rose-100 dark:bg-rose-950/60 flex items-center justify-center text-[#D64B4B] dark:text-rose-400 mb-3.5">
         <AlertCircle className="w-6 h-6" />
       </div>
-      <h3 className="text-base font-semibold text-[#172033]">{title}</h3>
-      <p className="text-sm text-[#687386] max-w-sm mt-1 leading-relaxed">{message}</p>
+      <h3 className="text-base font-semibold text-[#172033] dark:text-[#F1F5F9]">{title}</h3>
+      <p className="text-sm text-[#687386] dark:text-[#A0AEC0] max-w-sm mt-1 leading-relaxed">{message}</p>
       {onRetry && (
         <div className="mt-5">
           <Button variant="outline" size="sm" onClick={onRetry} icon={RotateCcw}>

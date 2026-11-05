@@ -9,10 +9,10 @@ export default function AdminRoute({ children }) {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[#F7F8FC]">
+      <div className="min-h-screen flex items-center justify-center bg-[#F7F8FC] dark:bg-[#0F1117] transition-colors">
         <div className="flex flex-col items-center gap-3">
           <LoadingSpinner size="lg" />
-          <p className="text-xs font-medium text-slate-500 font-sans">Verifying permissions...</p>
+          <p className="text-xs font-medium text-slate-500 dark:text-[#A0AEC0] font-sans">Verifying permissions...</p>
         </div>
       </div>
     );
