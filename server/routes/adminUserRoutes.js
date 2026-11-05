@@ -6,6 +6,7 @@ import {
   deleteUser,
 } from "../controllers/adminUserController.js";
 import { protect, adminOnly } from "../middleware/auth.js";
+import { sendAdminMessage } from "../controllers/notificationController.js";
 
 const router = express.Router();
 
@@ -16,5 +17,6 @@ router.get("/", getUsers);
 router.put("/:id/block", blockUser);
 router.put("/:id/unblock", unblockUser);
 router.delete("/:id", deleteUser);
+router.post("/:id/message", sendAdminMessage);
 
 export default router;
