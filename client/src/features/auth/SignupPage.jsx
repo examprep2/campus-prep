@@ -261,9 +261,9 @@ export default function SignupPage() {
           </Button>
         </div>
 
-        <p className="text-center text-xs text-[#687386] pt-2">
+        <p className="text-center text-xs text-[#687386] dark:text-[#A0AEC0] pt-2">
           Already have an account?{' '}
-          <Link to="/login" className="font-semibold text-[#3157D5] hover:underline">
+          <Link to="/login" className="font-semibold text-[#3157D5] dark:text-[#6B8CFF] hover:underline">
             Sign In
           </Link>
         </p>

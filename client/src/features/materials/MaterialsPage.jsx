@@ -139,7 +139,7 @@ export default function MaterialsPage() {
       />
 
       {/* Filter and Search Bar */}
-      <div className="p-4 rounded-2xl bg-white border border-[#E6E9F0] shadow-2xs space-y-4">
+      <div className="p-4 rounded-2xl bg-white dark:bg-[#1B2230] border border-[#E6E9F0] dark:border-[#30394A] shadow-2xs space-y-4 transition-colors">
         {/* Top bar: Search + Subject dropdown */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
           <div className="md:col-span-2">
@@ -179,7 +179,7 @@ export default function MaterialsPage() {
         </div>
 
         {/* Category Tabs */}
-        <div className="flex items-center gap-1.5 overflow-x-auto pb-1 no-scrollbar border-t border-slate-100 pt-3">
+        <div className="flex items-center gap-1.5 overflow-x-auto pb-1 no-scrollbar border-t border-slate-100 dark:border-[#30394A] pt-3">
           {CATEGORIES.map((cat) => {
             const isActive = currentType === cat.id;
             return (
@@ -189,8 +189,8 @@ export default function MaterialsPage() {
                 onClick={() => handleTypeSelect(cat.id)}
                 className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-colors cursor-pointer ${
                   isActive
-                    ? 'bg-[#3157D5] text-white shadow-2xs'
-                    : 'bg-slate-100 text-slate-600 hover:bg-slate-200 hover:text-slate-900'
+                    ? 'bg-[#3157D5] dark:bg-[#6B8CFF] text-white dark:text-slate-950 shadow-2xs'
+                    : 'bg-slate-100 dark:bg-[#222B3A] text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-[#222B3A]/80 hover:text-slate-900 dark:hover:text-[#F1F5F9]'
                 }`}
               >
                 {cat.label}
@@ -222,15 +222,15 @@ export default function MaterialsPage() {
             {materials.map((item) => (
               <div
                 key={item._id}
-                className="p-5 rounded-2xl bg-white border border-[#E6E9F0] shadow-2xs hover:border-[#3157D5]/40 hover:shadow-xs transition-all flex flex-col justify-between group"
+                className="p-5 rounded-2xl bg-white dark:bg-[#1B2230] border border-[#E6E9F0] dark:border-[#30394A] shadow-2xs hover:border-[#3157D5]/40 dark:hover:border-[#6B8CFF]/40 hover:shadow-xs transition-all flex flex-col justify-between group"
               >
                 <div className="space-y-3">
                   {/* Subject Tag & Type */}
                   <div className="flex items-center justify-between gap-2">
-                    <span className="text-[11px] font-mono font-semibold text-[#3157D5] bg-blue-50 px-2 py-0.5 rounded border border-blue-100">
+                    <span className="text-[11px] font-mono font-semibold text-[#3157D5] dark:text-[#6B8CFF] bg-blue-50 dark:bg-blue-950/40 px-2 py-0.5 rounded border border-blue-100 dark:border-blue-900/40">
                       {item.subject?.code || 'GEN'}
                     </span>
-                    <span className="text-[11px] font-medium text-slate-500 uppercase tracking-wider bg-slate-100 px-2 py-0.5 rounded">
+                    <span className="text-[11px] font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider bg-slate-100 dark:bg-[#222B3A] px-2 py-0.5 rounded">
                       {item.type}
                     </span>
                   </div>
@@ -238,30 +238,30 @@ export default function MaterialsPage() {
                   {/* Title & Subject */}
                   <div>
                     <h3
-                      className="font-semibold text-sm text-[#172033] line-clamp-2 leading-snug group-hover:text-[#3157D5] transition-colors"
+                      className="font-semibold text-sm text-[#172033] dark:text-[#F1F5F9] line-clamp-2 leading-snug group-hover:text-[#3157D5] dark:group-hover:text-[#6B8CFF] transition-colors"
                       title={item.title}
                     >
                       {item.title}
                     </h3>
-                    <p className="text-xs text-[#687386] mt-1 truncate">
+                    <p className="text-xs text-[#687386] dark:text-[#A0AEC0] mt-1 truncate">
                       {item.subject?.name}
                     </p>
                   </div>
 
                   {item.description && (
-                    <p className="text-xs text-slate-500 line-clamp-2 leading-relaxed">
+                    <p className="text-xs text-slate-500 dark:text-slate-400 line-clamp-2 leading-relaxed">
                       {item.description}
                     </p>
                   )}
                 </div>
 
                 {/* Footer specs & Action */}
-                <div className="pt-4 mt-4 border-t border-slate-100 flex items-center justify-between text-xs text-[#687386]">
+                <div className="pt-4 mt-4 border-t border-slate-100 dark:border-[#30394A] flex items-center justify-between text-xs text-[#687386] dark:text-[#A0AEC0]">
                   <div className="space-y-0.5 min-w-0 pr-2">
                     <p className="text-[11px] truncate">
-                      By <span className="font-medium text-slate-700">{item.uploadedBy?.name || 'Contributor'}</span>
+                      By <span className="font-medium text-slate-700 dark:text-slate-300">{item.uploadedBy?.name || 'Contributor'}</span>
                     </p>
-                    <p className="text-[10px] text-slate-400">
+                    <p className="text-[10px] text-slate-400 dark:text-slate-500">
                       {new Date(item.createdAt).toLocaleDateString()}
                       {item.examYear ? ` • Exam Year ${item.examYear}` : ''}
                     </p>
@@ -271,7 +271,7 @@ export default function MaterialsPage() {
                     href={item.fileUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#3157D5] text-white hover:bg-[#2648B8] text-xs font-semibold shadow-2xs transition-colors shrink-0"
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#3157D5] dark:bg-[#6B8CFF] text-white dark:text-slate-950 hover:bg-[#2648B8] dark:hover:bg-[#829DFF] text-xs font-semibold shadow-2xs transition-colors shrink-0"
                   >
                     <ExternalLink className="w-3.5 h-3.5" />
                     <span>Open PDF</span>

@@ -15,23 +15,23 @@ export default function Button({
   ...props
 }) {
   const baseClasses =
-    'inline-flex items-center justify-center font-medium rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-offset-1 disabled:opacity-60 disabled:cursor-not-allowed cursor-pointer select-none';
+    'inline-flex items-center justify-center font-medium rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-offset-1 dark:focus:ring-offset-[#0F1117] disabled:opacity-60 disabled:cursor-not-allowed cursor-pointer select-none';
 
   const variants = {
     primary:
-      'bg-[#3157D5] hover:bg-[#2648B8] text-white focus:ring-[#3157D5]/40 shadow-xs active:bg-[#1E3B9F]',
+      'bg-[#3157D5] hover:bg-[#2648B8] dark:bg-[#6B8CFF] dark:hover:bg-[#829DFF] text-white dark:text-[#0F1117] font-medium dark:font-semibold focus:ring-[#3157D5]/40 dark:focus:ring-[#6B8CFF]/40 shadow-xs active:bg-[#1E3B9F] dark:active:bg-[#5277F7]',
     secondary:
-      'bg-slate-100 hover:bg-slate-200 text-slate-800 focus:ring-slate-300 active:bg-slate-300',
+      'bg-slate-100 hover:bg-slate-200 dark:bg-[#222B3A] dark:hover:bg-[#2A3547] text-slate-800 dark:text-[#F1F5F9] focus:ring-slate-300 dark:focus:ring-slate-700 active:bg-slate-300 dark:active:bg-[#1B2230]',
     outline:
-      'bg-white border border-[#E6E9F0] text-slate-700 hover:bg-slate-50 hover:border-slate-300 focus:ring-slate-200 shadow-xs active:bg-slate-100',
+      'bg-white dark:bg-[#1B2230] border border-[#E6E9F0] dark:border-[#30394A] text-slate-700 dark:text-[#F1F5F9] hover:bg-slate-50 dark:hover:bg-[#222B3A] hover:border-slate-300 dark:hover:border-slate-500 focus:ring-slate-200 dark:focus:ring-slate-700 shadow-xs',
     danger:
-      'bg-[#D64B4B] hover:bg-[#B93838] text-white focus:ring-[#D64B4B]/40 shadow-xs active:bg-[#9F2828]',
+      'bg-[#D64B4B] hover:bg-[#B93838] dark:bg-[#F87171] dark:hover:bg-[#EF4444] text-white dark:text-[#0F1117] font-medium dark:font-semibold focus:ring-[#D64B4B]/40 dark:focus:ring-[#F87171]/40 shadow-xs',
     dangerOutline:
-      'bg-white border border-rose-200 text-[#D64B4B] hover:bg-rose-50 hover:border-rose-300 focus:ring-rose-200',
+      'bg-white dark:bg-[#1B2230] border border-rose-200 dark:border-rose-900/60 text-[#D64B4B] dark:text-[#F87171] hover:bg-rose-50 dark:hover:bg-rose-950/30 hover:border-rose-300 dark:hover:border-rose-800 focus:ring-rose-200 dark:focus:ring-rose-900',
     ghost:
-      'bg-transparent hover:bg-slate-100 text-slate-600 hover:text-slate-900 focus:ring-slate-200',
+      'bg-transparent hover:bg-slate-100 dark:hover:bg-[#222B3A] text-slate-600 dark:text-[#A0AEC0] hover:text-slate-900 dark:hover:text-[#F1F5F9] focus:ring-slate-200 dark:focus:ring-slate-700',
     link:
-      'bg-transparent text-[#3157D5] hover:underline p-0 h-auto font-normal focus:ring-0',
+      'bg-transparent text-[#3157D5] dark:text-[#6B8CFF] hover:underline p-0 h-auto font-normal focus:ring-0',
   };
 
   const sizes = {
@@ -58,4 +58,3 @@ export default function Button({
     </button>
   );
 }
-

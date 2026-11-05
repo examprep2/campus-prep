@@ -44,12 +44,12 @@ export default function Pagination({
 
   return (
     <div
-      className={`flex flex-col sm:flex-row items-center justify-between gap-3 pt-4 border-t border-[#E6E9F0] text-xs text-[#687386] ${className}`}
+      className={`flex flex-col sm:flex-row items-center justify-between gap-3 pt-4 border-t border-[#E6E9F0] dark:border-[#30394A] text-xs text-[#687386] dark:text-[#A0AEC0] ${className}`}
     >
       <div>
-        Showing <span className="font-semibold text-[#172033]">{startItem}</span> to{' '}
-        <span className="font-semibold text-[#172033]">{endItem}</span> of{' '}
-        <span className="font-semibold text-[#172033]">{total}</span> items
+        Showing <span className="font-semibold text-[#172033] dark:text-[#F1F5F9]">{startItem}</span> to{' '}
+        <span className="font-semibold text-[#172033] dark:text-[#F1F5F9]">{endItem}</span> of{' '}
+        <span className="font-semibold text-[#172033] dark:text-[#F1F5F9]">{total}</span> items
       </div>
 
       <div className="flex items-center gap-1.5">
@@ -74,8 +74,8 @@ export default function Pagination({
                 onClick={() => onPageChange?.(num)}
                 className={`w-8 h-8 rounded-lg text-xs font-medium transition-colors cursor-pointer ${
                   isActive
-                    ? 'bg-[#3157D5] text-white shadow-2xs'
-                    : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900'
+                    ? 'bg-[#3157D5] dark:bg-[#6B8CFF] text-white dark:text-slate-950 font-semibold shadow-2xs'
+                    : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-[#222B3A] hover:text-slate-900 dark:hover:text-[#F1F5F9]'
                 }`}
               >
                 {num}

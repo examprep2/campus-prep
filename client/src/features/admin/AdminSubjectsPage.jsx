@@ -4,7 +4,6 @@ import Button from '../../components/ui/Button';
 import Modal from '../../components/ui/Modal';
 import Input from '../../components/ui/Input';
 import Select from '../../components/ui/Select';
-import Badge from '../../components/ui/Badge';
 import StatusBadge from '../../components/ui/StatusBadge';
 import SkeletonLoader from '../../components/ui/SkeletonLoader';
 import EmptyState from '../../components/ui/EmptyState';
@@ -182,7 +181,7 @@ export default function AdminSubjectsPage() {
       />
 
       {/* Filter Bar */}
-      <div className="p-4 rounded-2xl bg-white border border-[#E6E9F0] shadow-2xs">
+      <div className="p-4 rounded-2xl bg-white dark:bg-[#1B2230] border border-[#E6E9F0] dark:border-[#30394A] shadow-2xs transition-colors">
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
           <Select
             value={filterBranch}
@@ -236,11 +235,11 @@ export default function AdminSubjectsPage() {
           onAction={openCreateModal}
         />
       ) : (
-        <div className="bg-white rounded-2xl border border-[#E6E9F0] shadow-2xs overflow-hidden">
+        <div className="bg-white dark:bg-[#1B2230] rounded-2xl border border-[#E6E9F0] dark:border-[#30394A] shadow-2xs overflow-hidden transition-colors">
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse">
               <thead>
-                <tr className="border-b border-[#E6E9F0] bg-slate-50 text-[11px] font-semibold text-slate-500 uppercase tracking-wider">
+                <tr className="border-b border-[#E6E9F0] dark:border-[#30394A] bg-slate-50 dark:bg-[#151923] text-[11px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
                   <th className="p-4">Subject Name & Code</th>
                   <th className="p-4">Academic Term</th>
                   <th className="p-4">Mapped Branches</th>
@@ -249,19 +248,19 @@ export default function AdminSubjectsPage() {
                   <th className="p-4 text-right">Action</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-[#E6E9F0] text-xs">
+              <tbody className="divide-y divide-[#E6E9F0] dark:divide-[#30394A] text-xs">
                 {subjects.map((sub) => (
-                  <tr key={sub._id} className="hover:bg-slate-50/60 transition-colors">
+                  <tr key={sub._id} className="hover:bg-slate-50/60 dark:hover:bg-[#222B3A]/40 transition-colors">
                     <td className="p-4">
                       <div>
-                        <span className="font-semibold text-slate-900 block">{sub.name}</span>
-                        <span className="text-[11px] font-mono font-semibold text-[#3157D5]">
+                        <span className="font-semibold text-slate-900 dark:text-[#F1F5F9] block">{sub.name}</span>
+                        <span className="text-[11px] font-mono font-semibold text-[#3157D5] dark:text-[#6B8CFF]">
                           {sub.code}
                         </span>
                       </div>
                     </td>
 
-                    <td className="p-4 text-slate-700">
+                    <td className="p-4 text-slate-700 dark:text-slate-300">
                       Year {sub.year} • Semester {sub.semester}
                     </td>
 
@@ -273,19 +272,19 @@ export default function AdminSubjectsPage() {
                             return (
                               <span
                                 key={typeof b === 'object' ? b._id : b}
-                                className="px-1.5 py-0.5 rounded bg-slate-100 text-slate-700 text-[10px] font-mono font-medium"
+                                className="px-1.5 py-0.5 rounded bg-slate-100 dark:bg-[#222B3A] text-slate-700 dark:text-slate-300 text-[10px] font-mono font-medium"
                               >
                                 {code}
                               </span>
                             );
                           })
                         ) : (
-                          <span className="text-slate-400">None</span>
+                          <span className="text-slate-400 dark:text-slate-500">None</span>
                         )}
                       </div>
                     </td>
 
-                    <td className="p-4 text-slate-600 font-mono text-[11px]">
+                    <td className="p-4 text-slate-600 dark:text-slate-400 font-mono text-[11px]">
                       {sub.scheme || 'Rev-2019'}
                     </td>
 
@@ -380,10 +379,10 @@ export default function AdminSubjectsPage() {
 
           {/* Mapped Branches Multi-select Checkboxes */}
           <div className="space-y-1.5 text-left">
-            <label className="block text-xs font-semibold text-[#172033]">
-              Applicable Engineering Branches <span className="text-[#D64B4B]">*</span>
+            <label className="block text-xs font-semibold text-[#172033] dark:text-[#F1F5F9]">
+              Applicable Engineering Branches <span className="text-[#D64B4B] dark:text-rose-400">*</span>
             </label>
-            <div className="grid grid-cols-2 gap-2 p-3 rounded-lg border border-[#E6E9F0] bg-slate-50/50 max-h-40 overflow-y-auto">
+            <div className="grid grid-cols-2 gap-2 p-3 rounded-lg border border-[#E6E9F0] dark:border-[#30394A] bg-slate-50/50 dark:bg-[#151923] max-h-40 overflow-y-auto">
               {branches.map((b) => {
                 const isSelected = formData.branches.includes(b._id);
                 return (
@@ -391,15 +390,15 @@ export default function AdminSubjectsPage() {
                     key={b._id}
                     className={`flex items-center gap-2 p-2 rounded-md border text-xs cursor-pointer transition-colors ${
                       isSelected
-                        ? 'border-[#3157D5] bg-blue-50/60 font-semibold text-[#3157D5]'
-                        : 'border-slate-200 bg-white hover:bg-slate-50 text-slate-700'
+                        ? 'border-[#3157D5] dark:border-[#6B8CFF] bg-blue-50/60 dark:bg-blue-950/40 font-semibold text-[#3157D5] dark:text-[#6B8CFF]'
+                        : 'border-slate-200 dark:border-[#30394A] bg-white dark:bg-[#1B2230] hover:bg-slate-50 dark:hover:bg-[#222B3A] text-slate-700 dark:text-slate-300'
                     }`}
                   >
                     <input
                       type="checkbox"
                       checked={isSelected}
                       onChange={() => handleBranchToggle(b._id)}
-                      className="rounded text-[#3157D5] border-slate-300 focus:ring-[#3157D5]"
+                      className="rounded text-[#3157D5] dark:text-[#6B8CFF] border-slate-300 dark:border-[#30394A] dark:bg-[#151923] focus:ring-[#3157D5]"
                     />
                     <span className="truncate">{b.code} - {b.name}</span>
                   </label>
@@ -407,7 +406,7 @@ export default function AdminSubjectsPage() {
               })}
             </div>
             {errors.branches && (
-              <p className="text-xs text-[#D64B4B] font-medium">{errors.branches}</p>
+              <p className="text-xs text-[#D64B4B] dark:text-rose-400 font-medium">{errors.branches}</p>
             )}
           </div>
 
@@ -418,15 +417,15 @@ export default function AdminSubjectsPage() {
                 id="sub-active"
                 checked={formData.isActive}
                 onChange={(e) => setFormData({ ...formData, isActive: e.target.checked })}
-                className="w-4 h-4 rounded text-[#3157D5] border-slate-300 focus:ring-[#3157D5]"
+                className="w-4 h-4 rounded text-[#3157D5] dark:text-[#6B8CFF] border-slate-300 dark:border-[#30394A] dark:bg-[#151923] focus:ring-[#3157D5]"
               />
-              <label htmlFor="sub-active" className="text-xs font-medium text-slate-700">
+              <label htmlFor="sub-active" className="text-xs font-medium text-slate-700 dark:text-slate-300">
                 Active & visible in student dashboard
               </label>
             </div>
           )}
 
-          <div className="flex items-center justify-end gap-3 pt-4 border-t border-[#E6E9F0]">
+          <div className="flex items-center justify-end gap-3 pt-4 border-t border-[#E6E9F0] dark:border-[#30394A]">
             <Button
               variant="outline"
               size="sm"

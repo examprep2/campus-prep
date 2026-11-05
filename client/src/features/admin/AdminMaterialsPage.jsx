@@ -210,47 +210,47 @@ export default function AdminMaterialsPage() {
             </span>
           </div>
 
-          <div className="bg-white rounded-2xl border border-[#E6E9F0] shadow-2xs divide-y divide-[#E6E9F0] overflow-hidden">
+          <div className="bg-white dark:bg-[#1B2230] rounded-2xl border border-[#E6E9F0] dark:border-[#30394A] shadow-2xs divide-y divide-[#E6E9F0] dark:divide-[#30394A] overflow-hidden transition-colors">
             {pendingMaterials.map((item) => (
               <div
                 key={item._id}
-                className="p-5 flex flex-col lg:flex-row lg:items-center justify-between gap-4 hover:bg-slate-50/50 transition-colors"
+                className="p-5 flex flex-col lg:flex-row lg:items-center justify-between gap-4 hover:bg-slate-50/50 dark:hover:bg-[#222B3A]/40 transition-colors"
               >
                 <div className="flex items-start gap-4 min-w-0 flex-1">
                   <FileTypeIcon type={item.type} size="md" className="shrink-0 mt-0.5" />
                   <div className="min-w-0 space-y-1">
                     <div className="flex flex-wrap items-center gap-2">
-                      <span className="text-[11px] font-mono font-semibold text-[#3157D5] bg-blue-50 px-2 py-0.5 rounded border border-blue-100">
+                      <span className="text-[11px] font-mono font-semibold text-[#3157D5] dark:text-[#6B8CFF] bg-blue-50 dark:bg-blue-950/40 px-2 py-0.5 rounded border border-blue-100 dark:border-blue-900/40">
                         {item.subject?.code}
                       </span>
-                      <span className="text-xs text-slate-600 font-medium truncate">
+                      <span className="text-xs text-slate-600 dark:text-slate-400 font-medium truncate">
                         {item.subject?.name}
                       </span>
-                      <span className="text-slate-300">•</span>
-                      <span className="text-[11px] uppercase tracking-wider text-slate-500 font-semibold">
+                      <span className="text-slate-300 dark:text-slate-600">•</span>
+                      <span className="text-[11px] uppercase tracking-wider text-slate-500 dark:text-slate-400 font-semibold">
                         {item.type}
                       </span>
                       {item.examYear && (
-                        <span className="text-[11px] text-slate-500">
+                        <span className="text-[11px] text-slate-500 dark:text-slate-400">
                           • Exam Year {item.examYear}
                         </span>
                       )}
                     </div>
 
-                    <h3 className="text-sm sm:text-base font-semibold text-[#172033] leading-snug">
+                    <h3 className="text-sm sm:text-base font-semibold text-[#172033] dark:text-[#F1F5F9] leading-snug">
                       {item.title}
                     </h3>
 
                     {item.description && (
-                      <p className="text-xs text-slate-500 line-clamp-2 leading-relaxed">
+                      <p className="text-xs text-slate-500 dark:text-slate-400 line-clamp-2 leading-relaxed">
                         {item.description}
                       </p>
                     )}
 
-                    <div className="flex flex-wrap items-center gap-3 text-xs text-[#687386] pt-0.5">
+                    <div className="flex flex-wrap items-center gap-3 text-xs text-[#687386] dark:text-[#A0AEC0] pt-0.5">
                       <span>
                         Uploaded by:{' '}
-                        <strong className="text-slate-700">
+                        <strong className="text-slate-700 dark:text-slate-300">
                           {item.uploadedBy?.name || 'Student'}
                         </strong>{' '}
                         ({item.uploadedBy?.email})
@@ -262,12 +262,12 @@ export default function AdminMaterialsPage() {
                 </div>
 
                 {/* Action buttons */}
-                <div className="flex items-center gap-2.5 shrink-0 self-end lg:self-center border-t lg:border-t-0 pt-3 lg:pt-0 w-full lg:w-auto justify-end">
+                <div className="flex items-center gap-2.5 shrink-0 self-end lg:self-center border-t lg:border-t-0 border-[#E6E9F0] dark:border-[#30394A] pt-3 lg:pt-0 w-full lg:w-auto justify-end">
                   <a
                     href={item.fileUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-[#E6E9F0] text-xs font-semibold text-slate-700 hover:bg-slate-50 transition-colors"
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-[#E6E9F0] dark:border-[#30394A] text-xs font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-[#222B3A] transition-colors"
                   >
                     <ExternalLink className="w-3.5 h-3.5" />
                     <span>Inspect PDF</span>
@@ -324,16 +324,16 @@ export default function AdminMaterialsPage() {
         description="Provide clear constructive feedback so the student understands why their file was rejected."
       >
         <form onSubmit={handleReject} className="space-y-4">
-          <div className="p-3 rounded-lg bg-slate-50 border border-slate-200 text-xs text-slate-600 space-y-1">
-            <span className="font-semibold block text-[#172033]">
+          <div className="p-3 rounded-lg bg-slate-50 dark:bg-[#151923] border border-slate-200 dark:border-[#30394A] text-xs text-slate-600 dark:text-slate-400 space-y-1">
+            <span className="font-semibold block text-[#172033] dark:text-[#F1F5F9]">
               Document: {selectedMaterial?.title}
             </span>
             <span>Contributor: {selectedMaterial?.uploadedBy?.name}</span>
           </div>
 
           <div className="space-y-1.5 text-left">
-            <label htmlFor="rejection-reason" className="block text-xs font-semibold text-[#172033]">
-              Reason for Rejection <span className="text-[#D64B4B]">*</span>
+            <label htmlFor="rejection-reason" className="block text-xs font-semibold text-[#172033] dark:text-[#F1F5F9]">
+              Reason for Rejection <span className="text-[#D64B4B] dark:text-rose-400">*</span>
             </label>
             <textarea
               id="rejection-reason"
@@ -342,17 +342,17 @@ export default function AdminMaterialsPage() {
               placeholder="e.g. Unclear handwritten scan, pages missing from module 3, or mismatched syllabus code."
               value={rejectReason}
               onChange={(e) => setRejectReason(e.target.value)}
-              className="w-full rounded-lg border border-[#E6E9F0] bg-white p-3 text-sm text-[#172033] placeholder:text-slate-400 focus:border-[#D64B4B] focus:outline-none focus:ring-2 focus:ring-[#D64B4B]/20 transition-colors"
+              className="w-full rounded-lg border border-[#E6E9F0] dark:border-[#30394A] bg-white dark:bg-[#151923] p-3 text-sm text-[#172033] dark:text-[#F1F5F9] placeholder:text-slate-400 dark:placeholder:text-slate-600 focus:border-[#D64B4B] focus:outline-none focus:ring-2 focus:ring-[#D64B4B]/20 transition-colors"
               required
               autoFocus
             />
-            <div className="flex justify-between text-[11px] text-slate-400">
+            <div className="flex justify-between text-[11px] text-slate-400 dark:text-slate-500">
               <span>Required (max 300 characters)</span>
               <span>{rejectReason.length}/300</span>
             </div>
           </div>
 
-          <div className="flex items-center justify-end gap-3 pt-3 border-t border-[#E6E9F0]">
+          <div className="flex items-center justify-end gap-3 pt-3 border-t border-[#E6E9F0] dark:border-[#30394A]">
             <Button
               variant="outline"
               size="sm"
@@ -434,7 +434,7 @@ export default function AdminMaterialsPage() {
             onChange={(e) => setCreateFormData({ ...createFormData, examYear: e.target.value })}
           />
 
-          <div className="flex items-center justify-end gap-3 pt-3 border-t border-[#E6E9F0]">
+          <div className="flex items-center justify-end gap-3 pt-3 border-t border-[#E6E9F0] dark:border-[#30394A]">
             <Button
               variant="outline"
               size="sm"
