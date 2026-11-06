@@ -93,4 +93,11 @@ userSchema.methods.comparePassword = function (enteredPassword) {
   return bcrypt.compare(enteredPassword, this.password);
 };
 
+// Delete accounts that never verified their email, 24 hours after signup.
+// Verified accounts don't match the filter, so they are never deleted.
+userSchema.index(
+  { createdAt: 1 },
+  { expireAfterSeconds: 24 * 60 * 60, partialFilterExpression: { isVerified: false } }
+);
+
 export default mongoose.model("User", userSchema);
